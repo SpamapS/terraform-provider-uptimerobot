@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	plugin.Serve(&plugin.ServOpts{
+	plugin.Serve(&plugin.ServeOpts{
 			ProviderFunc: func() terraform.ResourceProvider {
 					return Provider()
 			},
