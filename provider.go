@@ -1,14 +1,13 @@
 package main
 
 import (
-        "github.com/hashicorp/terraform/helper/schema"
+	"github.com/hashicorp/terraform/helper/schema"
 )
 
 func Provider() *schema.Provider {
-        return &schema.Provider{
-                ResourcesMap: map[string]*schema.Resource{
-						"uptimerobot_monitor": uptimerobotMonitor(),
-				},
-        }
+	return &schema.Provider{
+		ResourcesMap: map[string]*schema.Resource{
+			"uptimerobot_monitor": uptimerobotMonitor(),
+		},
+	}
 }
-
