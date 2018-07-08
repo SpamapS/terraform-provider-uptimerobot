@@ -6,6 +6,9 @@ import (
 
 func Provider() *schema.Provider {
         return &schema.Provider{
-                ResourcesMap: map[string]*schema.Resource{},
+                ResourcesMap: map[string]*schema.Resource{
+						"uptimerobot_monitor": uptimerobotMonitor(),
+				},
         }
 }
+
