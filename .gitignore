@@ -4,7 +4,8 @@
 *.dll
 *.so
 *.dylib
-terraform-uptimerobot-provider
+terraform-provider-uptimerobot
+.terraform
 
 # Test binary, build with `go test -c`
 *.test

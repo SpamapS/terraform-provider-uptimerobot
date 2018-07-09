@@ -25,6 +25,10 @@ func uptimerobotMonitor() *schema.Resource {
 		Delete: uptimerobotMonitorDelete,
 
 		Schema: map[string]*schema.Schema{
+			"api_key": &schema.Schema{
+				Type:     schema.TypeString,
+				Required: true,
+			},
 			"friendly_name": &schema.Schema{
 				Type:     schema.TypeString,
 				Required: true,
