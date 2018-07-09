@@ -1,17 +1,17 @@
 package main
 
 import (
+	"encoding/json"
 	"net/http"
 	"net/url"
 	"strings"
-	"encoding/json"
 )
 
-type Client struct{
-	BaseURL	*url.URL
-	UserAgent string
+type Client struct {
+	BaseURL    *url.URL
+	UserAgent  string
 	httpClient *http.Client
-	api_key string
+	api_key    string
 }
 
 type Log struct {
@@ -21,36 +21,35 @@ type Log struct {
 }
 
 type Monitor struct {
-	id string
-	friendly_name string
-	url string
-	monitor_type int
-	sub_type string
-	keyword_type string
-	keyword_value string
-	http_username string
-	http_password string
-	port string
-	interval int
-	status int
+	id              string
+	friendly_name   string
+	url             string
+	monitor_type    int
+	sub_type        string
+	keyword_type    string
+	keyword_value   string
+	http_username   string
+	http_password   string
+	port            string
+	interval        int
+	status          int
 	create_datetime int
-	monitor_group int
-	is_group_main int
-	logs []Log
+	monitor_group   int
+	is_group_main   int
+	logs            []Log
 }
 
 type Pagination struct {
 	offset int
-	limit int
-	total int
+	limit  int
+	total  int
 }
 
 type MonitorResp struct {
-	stat string
+	stat       string
 	pagination Pagination
-	monitors []Monitor
+	monitors   []Monitor
 }
-
 
 func (c *Client) getMonitors() ([]Monitor, error) {
 	data := url.Values{}
