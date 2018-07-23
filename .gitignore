@@ -12,3 +12,4 @@ terraform-provider-uptimerobot
 
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
+*.swp
