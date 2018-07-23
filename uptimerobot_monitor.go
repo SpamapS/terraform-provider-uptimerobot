@@ -5,6 +5,7 @@ import (
 	"github.com/hashicorp/terraform/helper/schema"
 	"net/url"
 	"spamaps.org/uptimerobot"
+	"strconv"
 )
 
 func makeClient() (*uptimerobot.Client, error) {
@@ -47,7 +48,15 @@ func uptimerobotMonitorUpdate(d *schema.ResourceData, m interface{}) error {
 	return nil
 }
 func uptimerobotMonitorDelete(d *schema.ResourceData, m interface{}) error {
-	return nil
+	c, err := makeClient()
+	if err != nil {
+		return err
+	}
+	i, err := strconv.Atoi(d.Id())
+	if err != nil {
+		return err
+	}
+	return c.DeleteMonitor(i)
 }
 
 func uptimerobotMonitor() *schema.Resource {
