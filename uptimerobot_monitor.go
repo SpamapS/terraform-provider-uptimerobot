@@ -1,22 +1,30 @@
 package main
 
 import (
+	"fmt"
 	"github.com/hashicorp/terraform/helper/schema"
 	"net/url"
 	"spamaps.org/uptimerobot"
-    "fmt"
 )
 
-func uptimerobotMonitorCreate(d *schema.ResourceData, m interface{}) error {
+func makeClient() (*uptimerobot.Client, error) {
 	u, err := url.Parse("https://api.uptimerobot.com/v2")
 	if err != nil {
-		return err
+		return nil, err
 	}
 	c := uptimerobot.Client{
 		BaseURL:    u,
 		UserAgent:  "terraform-provider-uptimerobot",
 		HttpClient: nil,
 		Api_key:    "aaaa",
+	}
+	return &c, nil
+}
+
+func uptimerobotMonitorCreate(d *schema.ResourceData, m interface{}) error {
+	c, err := makeClient()
+	if err != nil {
+		return err
 	}
 	mon := uptimerobot.Monitor{
 		Friendly_name: fmt.Sprintf("%s", d.Get("friendly_name")),
@@ -30,9 +38,11 @@ func uptimerobotMonitorCreate(d *schema.ResourceData, m interface{}) error {
 	d.SetId(fmt.Sprintf("%d", mon.Id))
 	return nil
 }
+
 func uptimerobotMonitorRead(d *schema.ResourceData, m interface{}) error {
 	return nil
 }
+
 func uptimerobotMonitorUpdate(d *schema.ResourceData, m interface{}) error {
 	return nil
 }
