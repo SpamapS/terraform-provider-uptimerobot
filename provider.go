@@ -9,6 +9,13 @@ import (
 func Provider() *schema.Provider {
 	var p *schema.Provider
 	p = &schema.Provider{
+		Schema: map[string]*schema.Schema{
+			"api_key": &schema.Schema{
+				Type:        schema.TypeString,
+				Required:    true,
+				DefaultFunc: schema.EnvDefaultFunc("UPTIMEROBOT_API_KEY", nil),
+			},
+		},
 		ResourcesMap: map[string]*schema.Resource{
 			"uptimerobot_monitor": uptimerobotMonitor(),
 		},
