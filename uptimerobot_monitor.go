@@ -22,6 +22,17 @@ func uptimerobotMonitorCreate(d *schema.ResourceData, m interface{}) error {
 }
 
 func uptimerobotMonitorRead(d *schema.ResourceData, m interface{}) error {
+	i, err := strconv.Atoi(d.Id())
+	if err != nil {
+		return err
+	}
+	mons, err := m.(*uptimerobot.Client).GetMonitors([]int{i})
+	if err != nil {
+		return err
+	}
+	d.Set("friendly_name", mons[0].Friendly_name)
+	d.Set("url", mons[0].Url)
+	d.Set("type", fmt.Sprintf("%d", mons[0].Monitor_type))
 	return nil
 }
 
