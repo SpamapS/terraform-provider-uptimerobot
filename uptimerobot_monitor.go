@@ -37,8 +37,19 @@ func uptimerobotMonitorRead(d *schema.ResourceData, m interface{}) error {
 }
 
 func uptimerobotMonitorUpdate(d *schema.ResourceData, m interface{}) error {
-	return nil
+	i, err := strconv.Atoi(d.Id())
+	if err != nil {
+		return err
+	}
+	mon := uptimerobot.Monitor{
+		Id:            i,
+		Friendly_name: fmt.Sprintf("%s", d.Get("friendly_name")),
+		Url:           fmt.Sprintf("%s", d.Get("url")),
+		Monitor_type:  d.Get("type").(int),
+	}
+	return m.(*uptimerobot.Client).EditMonitor(&mon)
 }
+
 func uptimerobotMonitorDelete(d *schema.ResourceData, m interface{}) error {
 	i, err := strconv.Atoi(d.Id())
 	if err != nil {
