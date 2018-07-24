@@ -27,7 +27,7 @@ func Provider() *schema.Provider {
 
 func providerConfigure(p *schema.Provider) schema.ConfigureFunc {
 	return func(d *schema.ResourceData) (interface{}, error) {
-		u, err := url.Parse("https://api.uptimerobot.com/v2")
+		u, err := url.Parse("https://api.uptimerobot.com/v2/")
 		if err != nil {
 			return nil, err
 		}
