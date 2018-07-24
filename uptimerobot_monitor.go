@@ -11,9 +11,10 @@ func uptimerobotMonitorCreate(d *schema.ResourceData, m interface{}) error {
 	mon := uptimerobot.Monitor{
 		Friendly_name: fmt.Sprintf("%s", d.Get("friendly_name")),
 		Url:           fmt.Sprintf("%s", d.Get("url")),
-		Monitor_type:  d.Get("type").(int),
+		Monitor_type:  uptimerobot.MonitorTypeNames["type"],
 	}
-	err := m.(*uptimerobot.Client).CreateMonitor(&mon)
+	c := m.(*uptimerobot.Client)
+	err := c.CreateMonitor(&mon)
 	if err != nil {
 		return err
 	}

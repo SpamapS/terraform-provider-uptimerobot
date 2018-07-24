@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/hashicorp/terraform/helper/schema"
+	"net/http"
 	"net/url"
 	"spamaps.org/uptimerobot"
 )
@@ -33,9 +34,9 @@ func providerConfigure(p *schema.Provider) schema.ConfigureFunc {
 		c := uptimerobot.Client{
 			BaseURL:    u,
 			UserAgent:  "terraform-provider-uptimerobot",
-			HttpClient: nil,
+			HttpClient: &http.Client{},
 			Api_key:    d.Get("api_key").(string),
 		}
-		return c, nil
+		return &c, nil
 	}
 }
