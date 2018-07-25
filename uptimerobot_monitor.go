@@ -59,12 +59,35 @@ func uptimerobotMonitorDelete(d *schema.ResourceData, m interface{}) error {
 	return m.(*uptimerobot.Client).DeleteMonitor(i)
 }
 
+func uptimerobotMonitorImport(d *schema.ResourceData, m interface{}) ([]*schema.ResourceData, error) {
+	c := m.(*uptimerobot.Client)
+	results := []*schema.ResourceData{}
+	mons, err := c.GetMonitors([]int{})
+	if err != nil {
+		return results, err
+	}
+
+	for _, monitor := range mons {
+		md := new(schema.ResourceData)
+		md.SetId(fmt.Sprintf("%d", monitor.Id))
+		md.SetType("uptimerobot_monitor")
+		md.Set("friendly_name", monitor.Friendly_name)
+		md.Set("type", uptimerobot.MonitorTypeToName[monitor.Monitor_type])
+		md.Set("url", monitor.Url)
+		results = append(results, md)
+	}
+	return results, nil
+}
+
 func uptimerobotMonitor() *schema.Resource {
 	return &schema.Resource{
 		Create: uptimerobotMonitorCreate,
 		Read:   uptimerobotMonitorRead,
 		Update: uptimerobotMonitorUpdate,
 		Delete: uptimerobotMonitorDelete,
+		Importer: &schema.ResourceImporter{
+			State: uptimerobotMonitorImport,
+		},
 
 		Schema: map[string]*schema.Schema{
 			"friendly_name": &schema.Schema{
