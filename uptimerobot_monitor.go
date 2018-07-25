@@ -33,7 +33,7 @@ func uptimerobotMonitorRead(d *schema.ResourceData, m interface{}) error {
 	}
 	d.Set("friendly_name", mons[0].Friendly_name)
 	d.Set("url", mons[0].Url)
-	d.Set("type", fmt.Sprintf("%d", mons[0].Monitor_type))
+	d.Set("type", uptimerobot.MonitorTypeToName[mons[0].Monitor_type])
 	return nil
 }
 
@@ -60,9 +60,13 @@ func uptimerobotMonitorDelete(d *schema.ResourceData, m interface{}) error {
 }
 
 func uptimerobotMonitorImport(d *schema.ResourceData, m interface{}) ([]*schema.ResourceData, error) {
+	i, err := strconv.Atoi(d.Id())
+	if err != nil {
+		return nil, err
+	}
 	c := m.(*uptimerobot.Client)
 	results := []*schema.ResourceData{}
-	mons, err := c.GetMonitors([]int{})
+	mons, err := c.GetMonitors([]int{i})
 	if err != nil {
 		return results, err
 	}
