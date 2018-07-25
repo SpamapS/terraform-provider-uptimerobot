@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
+	"github.com/SpamapS/uptimerobot"
 	"github.com/hashicorp/terraform/helper/schema"
-	"spamaps.org/uptimerobot"
 	"strconv"
 )
 

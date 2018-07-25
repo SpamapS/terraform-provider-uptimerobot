@@ -1,10 +1,10 @@
 package main
 
 import (
+	"github.com/SpamapS/uptimerobot"
 	"github.com/hashicorp/terraform/helper/schema"
 	"net/http"
 	"net/url"
-	"spamaps.org/uptimerobot"
 )
 
 func Provider() *schema.Provider {
