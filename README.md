@@ -1,5 +1,7 @@
 # terraform-provider-uptimerobot
 
+**DEPRECATED** *This provider has been deprecated now that https://github.com/louy/terraform-provider-uptimerobot has a clear license (MIT). Leaving the code here for posterity but please use https://github.com/louy/terraform-provider-uptimerobot going forward.*
+
 Apache 2 licensed Uptimerobot Terraform Provider
 
 ## Installation
